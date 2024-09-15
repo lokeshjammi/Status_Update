@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}QA Status Update{% endblock %}
+
+{% block content %}
+    <div class="col-lg-8 mx-auto p-4 py-md-5">
+      <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
+        <span class="fs-4"><b>QA Status Update</b></span>
+      </header>
+      <main>
+        <h1 class="text-body-emphasis">Get started with Registration</h1>
+        <p>New Story...!, Please register here.</p>
+        <a class="btn btn-primary" href="{{ url_for('add_work_tickets') }}" role="button">Register Now</a>
+      </main>
+      <hr>
+      <main>
+        <h1 class="text-body-emphasis">Update your work tickets here...</h1>
+        <p>Changes...!, Please update here.</p>
+        <a class="btn btn-primary" href="{{ url_for('update_work_tickets') }}" role="button">Update Now</a>
+      </main>
+      <hr>
+      <main>
+        <h1 class="text-body-emphasis">Delete your work tickets here...</h1>
+        <p>Changes...!, Please delete here.</p>
+        <a class="btn btn-primary" href="{{ url_for('update_work_tickets') }}" role="button">Delete Now</a>
+      </main>
+    </div>
+{% endblock %}
