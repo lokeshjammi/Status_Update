@@ -9,8 +9,15 @@
       </header>
       <main>
         <h1 class="text-body-emphasis">Get started with Registration</h1>
-        <p>New Story...!, Please register here.</p>
-        <a class="btn btn-primary" href="{{ url_for('add_work_tickets') }}" role="button">Register Now</a>
+        <p>New Story/New User, Please register here.</p>
+        <a class="btn btn-primary" href="{{ url_for('add_work_tickets') }}" role="button">Register Story</a>
+        <a class="btn btn-primary" href="{{ url_for('add_users') }}" role="button">Register User</a>
+      </main>
+      <hr>
+      <main>
+        <h1 class="text-body-emphasis">View Registered users</h1>
+        <p>Check your registration here</p>
+        <a class="btn btn-primary" href="{{ url_for('view_registered_users') }}" role="button">View User</a>
       </main>
       <hr>
       <main>

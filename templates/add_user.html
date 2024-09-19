@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Add Users Here{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
+            <span class="fs-4"><b>QA Status Update</b></span>
+        </header>
+        {{ render_form(add_new_user) }}
+    </div>
+{% endblock %}
