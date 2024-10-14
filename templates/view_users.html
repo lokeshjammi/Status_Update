@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}View Users Here{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
+            <span class="fs-4"><b>View Registered Users</b></span>
+        </header>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_data in users_data %}
+                    <tr>
+                        <th scope="row">{{ user_data.user_id }}</th>
+                        <td>{{ user_data.user_name }}</td>
+                        <td>{{ user_data.user_email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('homepage') }}" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+            Back to Homepage
+        </a><br><br>
+    </div>
+{% endblock %}

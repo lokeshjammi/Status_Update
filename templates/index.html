@@ -9,20 +9,33 @@
       </header>
       <main>
         <h1 class="text-body-emphasis">Get started with Registration</h1>
-        <p>New Story...!, Please register here.</p>
-        <a class="btn btn-primary" href="{{ url_for('add_work_tickets') }}" role="button">Register Now</a>
+        <p>New Story/New User, Please register here.</p>
+        <a class="btn btn-primary" href="{{ url_for('add_work_tickets') }}" role="button">Register Story</a>
+        <a class="btn btn-primary" href="{{ url_for('add_users') }}" role="button">Register User</a>
       </main>
       <hr>
       <main>
-        <h1 class="text-body-emphasis">Update your work tickets here...</h1>
-        <p>Changes...!, Please update here.</p>
-        <a class="btn btn-primary" href="{{ url_for('update_work_tickets') }}" role="button">Update Now</a>
+        <h1 class="text-body-emphasis">View Registered users</h1>
+        <p>Check your registration here</p>
+        <a class="btn btn-primary" href="{{ url_for('view_registered_users') }}" role="button">View Users</a>
       </main>
       <hr>
+<!--      <main>-->
+<!--        <h1 class="text-body-emphasis">Update your work tickets here...</h1>-->
+<!--        <p>Changes...!, Please update here.</p>-->
+<!--        <a class="btn btn-primary" href="{{ url_for('update_work_tickets') }}" role="button">Update Now</a>-->
+<!--      </main>-->
+<!--      <hr>-->
+<!--      <main>-->
+<!--        <h1 class="text-body-emphasis">Delete your work tickets here...</h1>-->
+<!--        <p>Changes...!, Please delete here.</p>-->
+<!--        <a class="btn btn-primary" href="{{ url_for('update_work_tickets') }}" role="button">Delete Now</a>-->
+<!--      </main>-->
+<!--      <hr>-->
       <main>
-        <h1 class="text-body-emphasis">Delete your work tickets here...</h1>
-        <p>Changes...!, Please delete here.</p>
-        <a class="btn btn-primary" href="{{ url_for('update_work_tickets') }}" role="button">Delete Now</a>
+        <h1 class="text-body-emphasis">View all the details</h1>
+        <p>Click below button to view all users data</p>
+        <a class="btn btn-primary" href="{{ url_for('view_all_data') }}" role="button">View all data</a>
       </main>
     </div>
 {% endblock %}

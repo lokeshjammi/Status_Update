@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Edit your ticket details{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
+            <span class="fs-4"><b>QA Status Update</b></span>
+        </header>
+        <a href="{{ url_for('homepage') }}" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+            Back to Homepage
+        </a><br><br>
+<!--         <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="qa_name">QA_Name</label>-->
+<!--            <input type="text" class="form-control" id="qa_name" name="qa_name_name" value="{{ edit_data.name }}" readonly disabled/>-->
+<!--        </div>-->
+<!--        <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="qa_email">QA_Email</label>-->
+<!--            <input type="text" class="form-control" id="qa_email" value="{{ edit_data.email }}" readonly disabled/>-->
+<!--        </div>-->
+<!--        <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="qa_sprint_id">Sprint_ID</label>-->
+<!--            <input type="text" class="form-control" id="qa_sprint_id" value="{{ edit_data.sprint_id }}" />-->
+<!--        </div>-->
+<!--        <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="qa_story_id">Story_ID</label>-->
+<!--            <input type="text" class="form-control" id="qa_story_id" value="{{ edit_data.story_id }}" />-->
+<!--        </div>-->
+<!--        <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="qa_task_id">QA_Task_ID</label>-->
+<!--            <input type="text" class="form-control" id="qa_task_id" value="{{ edit_data.qa_task_id }}" />-->
+<!--        </div>-->
+<!--        <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="todo_bug_id">Todo_Bug_ID</label>-->
+<!--            <input type="text" class="form-control" id="todo_bug_id" value="{{ edit_data.bugs_todo }}" />-->
+<!--        </div>-->
+<!--        <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="inprogress_bug_id">Inprogress_Bug_ID</label>-->
+<!--            <input type="text" class="form-control" id="inprogress_bug_id" value="{{ edit_data.bugs_progress }}" />-->
+<!--        </div>-->
+<!--        <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="done_bug_id">Done_Bug_ID</label>-->
+<!--            <input type="text" class="form-control" id="done_bug_id" value="{{ edit_data.bugs_done }}" />-->
+<!--        </div>-->
+<!--        <div class="form-group" style="padding-bottom: 10px">-->
+<!--            <label for="verified_bug_id">Verified_Bug_ID</label>-->
+<!--            <input type="text" class="form-control" id="verified_bug_id" value="{{ edit_data.bugs_verified }}" />-->
+<!--        </div>-->
+        {{ render_form(edit_working_ticket) }}
+    </div>
+{% endblock %}
