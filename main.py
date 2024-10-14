@@ -59,7 +59,13 @@ class AddWorkingTickets(FlaskForm):
     submit = SubmitField(label="Submit")
 
 class EditWorkingTicket(FlaskForm):
-    qa_name = StringField(label="QA_Name", validators=[DataRequired()])
+    sprint_id = IntegerField(label="Sprint_ID", validators=[DataRequired()])
+    story_id = StringField(label="Story_ID", validators=[DataRequired()])
+    qa_task_id = StringField(label="QA_Task_ID", validators=[DataRequired()])
+    qa_bugs_todo = StringField(label="Todo_Bug_ID", validators=[DataRequired()])
+    qa_bugs_progress = StringField(label="InProgress_Bug_ID", validators=[DataRequired()])
+    qa_bugs_done = StringField(label="Done_Bug_ID", validators=[DataRequired()])
+    qa_bugs_verified = StringField(label="Verified_Bug_ID", validators=[DataRequired()])
     submit = SubmitField(label="Submit")
 
 class AddUsers(FlaskForm):
@@ -143,7 +149,11 @@ def edit_details(selected_data_id):
     edit_working_ticket = EditWorkingTicket()
     edit_data = db.session.query(Todays).filter_by(id=selected_data_id).first()
     if edit_working_ticket.validate_on_submit():
-        print(request.form.get)
+        edit_data.sprint_id = request.form.get('sprint_id')
+        edit_data.story_id = request.form.get('story_id')
+        edit_data.qa_task_id = request.form.get('qa_task_id')
+        db.session.commit()
+        return redirect(url_for('view_all_data'))
     return render_template('edit_details.html', edit_working_ticket=edit_working_ticket, edit_data=edit_data)
 
 
