@@ -26,6 +26,8 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a class="btn btn-primary" href="{{ url_for('homepage') }}" role="button">Back to Homepage</a>
+        <a href="{{ url_for('homepage') }}" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+            Back to Homepage
+        </a><br><br>
     </div>
 {% endblock %}

@@ -8,6 +8,9 @@
         <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
             <span class="fs-4"><b>QA Status Update</b></span>
         </header>
+        <a href="{{ url_for('homepage') }}" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+            Back to Homepage
+        </a><br><br>
         {{ render_form(add_new_user) }}
     </div>
 {% endblock %}

@@ -1,12 +1,13 @@
 import os
+from cProfile import label
 
-import requests
 from flask import Flask, render_template, request, url_for, redirect
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
+from sqlalchemy import values
 from wtforms import StringField, SubmitField, EmailField, IntegerField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, ReadOnly, Disabled
 
 app = Flask(__name__)
 Bootstrap5(app)
@@ -57,6 +58,9 @@ class AddWorkingTickets(FlaskForm):
     qa_bugs_verified = StringField(label="Verified_Bug_ID", validators=[DataRequired()])
     submit = SubmitField(label="Submit")
 
+class EditWorkingTicket(FlaskForm):
+    qa_name = StringField(label="QA_Name", validators=[DataRequired()])
+    submit = SubmitField(label="Submit")
 
 class AddUsers(FlaskForm):
     new_qa_name = StringField(label="Name", validators=[DataRequired()])
@@ -77,7 +81,6 @@ def add_users():
     try:
         if add_new_user.validate_on_submit():
             query = db.session.query(Users).count()
-            print(query)
             new_user = Users(user_id=query + 1, user_name=request.form.get('new_qa_name'),
                              user_email=request.form.get('new_qa_email'))
             db.session.add(new_user)
@@ -90,22 +93,33 @@ def add_users():
 
 @app.route("/add_ticket", methods=['POST', 'GET'])
 def add_work_tickets():
+    db.session.rollback()
+    get_registered_users_names = []
+    get_registered_users_email = []
     add_working_tickets = AddWorkingTickets()
     if add_working_tickets.validate_on_submit():
         query = db.session.query(Todays).count()
-        new_status = Todays(id=query + 1, name=request.form.get('qa_name'), email=request.form.get('qa_email'),
-                            sprint_id=request.form.get('qa_sprint_id'),
-                            story_id=request.form.get('qa_story_id'), )
-        db.session.add(new_status)
+        qa_name = request.form.get('qa_name')
+        qa_email = request.form.get('qa_email')
+        qa_sprint_id = request.form.get('sprint_id')
+        qa_story_id = request.form.get('story_id')
+        qa_task_id = request.form.get('qa_task_id')
+        qa_bugs_todo = request.form.get('qa_bugs_todo')
+        qa_bugs_progress = request.form.get('qa_bugs_progress')
+        qa_bugs_done = request.form.get('qa_bugs_done')
+        qa_bugs_verified = request.form.get('qa_bugs_verified')
+        new_ticket_add = Todays(id=query+1, name=qa_name, email=qa_email, sprint_id=qa_sprint_id, story_id=qa_story_id, qa_task_id=qa_task_id,
+                                bugs_todo=qa_bugs_todo, bugs_progress=qa_bugs_progress, bugs_done=qa_bugs_done, bugs_verified=qa_bugs_verified)
+        db.session.add(new_ticket_add)
         db.session.commit()
         return redirect(url_for('homepage'))
-    return render_template('add_tickets.html', add=add_working_tickets)
+    return render_template('add_tickets.html', add=add_working_tickets, get_registered_users_names=get_registered_users_names,
+                           get_registered_users_email=get_registered_users_email)
 
 
 @app.route("/view_users", methods=['POST', 'GET'])
 def view_registered_users():
     users_data = db.session.query(Users).all()
-    print(users_data)
     return render_template('view_users.html', users_data=users_data)
 
 
@@ -117,6 +131,20 @@ def update_work_tickets():
 @app.route("/delete")
 def delete_work_tickets():
     return render_template('delete.html')
+
+@app.route("/view_all_data", methods=['POST', 'GET'])
+def view_all_data():
+    db.session.rollback()
+    view_all_data = db.session.query(Todays).all()
+    return render_template('view_all_users_data.html', users_data = view_all_data)
+
+@app.route("/edit_details/<int:selected_data_id>", methods=['POST', 'GET'])
+def edit_details(selected_data_id):
+    edit_working_ticket = EditWorkingTicket()
+    edit_data = db.session.query(Todays).filter_by(id=selected_data_id).first()
+    if edit_working_ticket.validate_on_submit():
+        print(request.form.get)
+    return render_template('edit_details.html', edit_working_ticket=edit_working_ticket, edit_data=edit_data)
 
 
 if __name__ == '__main__':
