@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from sqlalchemy import values
 from wtforms import StringField, SubmitField, EmailField, IntegerField
+from wtforms.fields.datetime import DateField
 from wtforms.validators import DataRequired, ReadOnly, Disabled
 
 app = Flask(__name__)
@@ -32,13 +33,13 @@ class Todays(db.Model):
     bugs_progress = db.Column(type_=db.String, name="bugs_progress")
     bugs_done = db.Column(type_=db.String, name="bugs_done")
     bugs_verified = db.Column(type_=db.String, name="bugs_verified")
+    current_date = db.Column(type_=db.String, name="created_at")
 
 
 class Users(db.Model):
     user_id = db.Column(type_=db.Integer, name="user_id", primary_key=True, autoincrement=True)
     user_name = db.Column(type_=db.String, name="user_name", unique=True)
     user_email = db.Column(type_=db.String, name="user_email_id", unique=True)
-
 
 #==============Database Tables================
 
@@ -56,6 +57,7 @@ class AddWorkingTickets(FlaskForm):
     qa_bugs_progress = StringField(label="InProgress_Bug_ID", validators=[DataRequired()])
     qa_bugs_done = StringField(label="Done_Bug_ID", validators=[DataRequired()])
     qa_bugs_verified = StringField(label="Verified_Bug_ID", validators=[DataRequired()])
+    current_date = DateField(label='Current_Date', validators=[DataRequired()])
     submit = SubmitField(label="Submit")
 
 class EditWorkingTicket(FlaskForm):
@@ -114,8 +116,9 @@ def add_work_tickets():
         qa_bugs_progress = request.form.get('qa_bugs_progress')
         qa_bugs_done = request.form.get('qa_bugs_done')
         qa_bugs_verified = request.form.get('qa_bugs_verified')
+        current_date = request.form.get('current_date')
         new_ticket_add = Todays(id=query+1, name=qa_name, email=qa_email, sprint_id=qa_sprint_id, story_id=qa_story_id, qa_task_id=qa_task_id,
-                                bugs_todo=qa_bugs_todo, bugs_progress=qa_bugs_progress, bugs_done=qa_bugs_done, bugs_verified=qa_bugs_verified)
+                                bugs_todo=qa_bugs_todo, bugs_progress=qa_bugs_progress, bugs_done=qa_bugs_done, bugs_verified=qa_bugs_verified, current_date=current_date)
         db.session.add(new_ticket_add)
         db.session.commit()
         return redirect(url_for('homepage'))
@@ -152,6 +155,10 @@ def edit_details(selected_data_id):
         edit_data.sprint_id = request.form.get('sprint_id')
         edit_data.story_id = request.form.get('story_id')
         edit_data.qa_task_id = request.form.get('qa_task_id')
+        edit_data.bugs_todo = request.form.get('qa_bugs_todo')
+        edit_data.bugs_progress = request.form.get('qa_bugs_progress')
+        edit_data.bugs_done = request.form.get('qa_bugs_done')
+        edit_data.bugs_verified = request.form.get('qa_bugs_verified')
         db.session.commit()
         return redirect(url_for('view_all_data'))
     return render_template('edit_details.html', edit_working_ticket=edit_working_ticket, edit_data=edit_data)
