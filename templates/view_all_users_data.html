@@ -6,7 +6,7 @@
 {% block content %}
     <div class="container">
         <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
-            <span class="fs-4"><b>View Registered Users</b></span>
+            <span class="fs-4"><b>View all Users Data</b></span>
         </header>
         <a href="{{ url_for('homepage') }}" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
             Back to Homepage
@@ -15,8 +15,8 @@
             <thead class="thead-dark">
                 <tr>
                   <th scope="col">#</th>
+<!--                  <th scope="col">QA Name</th>-->
                   <th scope="col">QA Name</th>
-                  <th scope="col">QA Email</th>
                   <th scope="col">Story_ID</th>
                   <th scope="col">Sprint_ID</th>
                   <th scope="col">QA_Task_ID</th>
@@ -24,6 +24,7 @@
                   <th scope="col">Bugs_InProgress</th>
                   <th scope="col">Bugs_Done</th>
                   <th scope="col">Bugs_Verified</th>
+                  <th scope="col">Created_at</th>
                   <th scope="col">Edit</th>
                 </tr>
             </thead>
@@ -31,8 +32,8 @@
                 {% for user_data in users_data %}
                     <tr>
                         <th scope="row">{{ user_data.id }}</th>
+<!--                        <td>{{ user_data.name }}</td>-->
                         <td>{{ user_data.name }}</td>
-                        <td>{{ user_data.email }}</td>
                         <td>{{ user_data.story_id }}</td>
                         <td>{{ user_data.sprint_id }}</td>
                         <td>{{ user_data.qa_task_id }}</td>
@@ -40,6 +41,7 @@
                         <td>{{ user_data.bugs_progress }}</td>
                         <td>{{ user_data.bugs_done }}</td>
                         <td>{{ user_data.bugs_verified }}</td>
+                        <td>{{ user_data.current_date }}</td>
                         <td>
                             {% set data_id = user_data.id %}
                             <a href="{{ url_for('edit_details', selected_data_id=data_id) }}"
