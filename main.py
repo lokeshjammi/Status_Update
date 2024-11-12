@@ -24,8 +24,8 @@ db = SQLAlchemy(app)
 
 class Todays(db.Model):
     id = db.Column(type_=db.Integer, name="id", primary_key=True, autoincrement=True)
-    name = db.Column(type_=db.String, name="name", unique=True)
-    email = db.Column(type_=db.String, name="email_id", unique=True)
+    name = db.Column(type_=db.String, name="name")
+    email = db.Column(type_=db.String, name="email_id")
     story_id = db.Column(type_=db.String, name="story_id")
     sprint_id = db.Column(type_=db.Integer, name="sprint_id")
     qa_task_id = db.Column(type_=db.String, name="qa_task_id")
