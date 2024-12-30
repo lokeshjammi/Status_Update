@@ -20,22 +20,16 @@
         <a class="btn btn-primary" href="{{ url_for('view_registered_users') }}" role="button">View Users</a>
       </main>
       <hr>
-<!--      <main>-->
-<!--        <h1 class="text-body-emphasis">Update your work tickets here...</h1>-->
-<!--        <p>Changes...!, Please update here.</p>-->
-<!--        <a class="btn btn-primary" href="{{ url_for('update_work_tickets') }}" role="button">Update Now</a>-->
-<!--      </main>-->
-<!--      <hr>-->
-<!--      <main>-->
-<!--        <h1 class="text-body-emphasis">Delete your work tickets here...</h1>-->
-<!--        <p>Changes...!, Please delete here.</p>-->
-<!--        <a class="btn btn-primary" href="{{ url_for('update_work_tickets') }}" role="button">Delete Now</a>-->
-<!--      </main>-->
-<!--      <hr>-->
       <main>
         <h1 class="text-body-emphasis">View all the details</h1>
         <p>Click below button to view all users data</p>
         <a class="btn btn-primary" href="{{ url_for('view_all_data') }}" role="button">View all data</a>
+      </main>
+      <hr>
+      <main>
+        <h1 class="text-body-emphasis">View Current Date Data</h1>
+        <p>Click below button to view current date data</p>
+        <a class="btn btn-primary" href="{{ url_for('view_current_date_data') }}" role="button">View current date data</a>
       </main>
     </div>
 {% endblock %}

@@ -1,14 +1,13 @@
 import os
-from cProfile import label
 
 from flask import Flask, render_template, request, url_for, redirect
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from sqlalchemy import values
 from wtforms import StringField, SubmitField, EmailField, IntegerField
 from wtforms.fields.datetime import DateField
-from wtforms.validators import DataRequired, ReadOnly, Disabled
+from wtforms.validators import DataRequired
+from datetime import date
 
 app = Flask(__name__)
 Bootstrap5(app)
@@ -18,10 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(base_file, "
 
 db = SQLAlchemy(app)
 
-
 #==============Database Tables================
-
-
 class Todays(db.Model):
     id = db.Column(type_=db.Integer, name="id", primary_key=True, autoincrement=True)
     name = db.Column(type_=db.String, name="name")
@@ -40,9 +36,7 @@ class Users(db.Model):
     user_id = db.Column(type_=db.Integer, name="user_id", primary_key=True, autoincrement=True)
     user_name = db.Column(type_=db.String, name="user_name", unique=True)
     user_email = db.Column(type_=db.String, name="user_email_id", unique=True)
-
 #==============Database Tables================
-
 with app.app_context():
     db.create_all()
 
@@ -74,7 +68,6 @@ class AddUsers(FlaskForm):
     new_qa_name = StringField(label="Name", validators=[DataRequired()])
     new_qa_email = EmailField(label="Email", validators=[DataRequired()])
     submit = SubmitField(label="Submit")
-
 
 @app.route("/")
 def homepage():
@@ -132,20 +125,21 @@ def view_registered_users():
     return render_template('view_users.html', users_data=users_data)
 
 
-@app.route("/update")
-def update_work_tickets():
-    return render_template('update.html')
+# @app.route("/update")
+# def update_work_tickets():
+#     return render_template('update.html')
 
 
-@app.route("/delete")
-def delete_work_tickets():
-    return render_template('delete.html')
+# @app.route("/delete")
+# def delete_work_tickets():
+#     return render_template('delete.html')
 
 @app.route("/view_all_data", methods=['POST', 'GET'])
 def view_all_data():
     db.session.rollback()
     view_all_data = db.session.query(Todays).all()
-    return render_template('view_all_users_data.html', users_data = view_all_data)
+    view_all_users = db.session.query(Users).all()
+    return render_template('view_all_users_data.html', users_data = view_all_data, all_users = view_all_users)
 
 @app.route("/edit_details/<int:selected_data_id>", methods=['POST', 'GET'])
 def edit_details(selected_data_id):
@@ -163,6 +157,11 @@ def edit_details(selected_data_id):
         return redirect(url_for('view_all_data'))
     return render_template('edit_details.html', edit_working_ticket=edit_working_ticket, edit_data=edit_data)
 
+@app.route("/view_current_date_data", methods=['POST', 'GET'])
+def view_current_date_data():
+    get_current_date = date.today()
+    today_datas = db.session.query(Todays).filter(Todays.current_date==get_current_date).all()
+    return render_template('view_current_date_data.html', today_datas=today_datas)
 
 if __name__ == '__main__':
     app.run(debug=True)
