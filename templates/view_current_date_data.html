@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}View current date data{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
+            <span class="fs-4"><b>View current date data</b></span>
+        </header>
+        <a href="{{ url_for('homepage') }}" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+            Back to Homepage
+        </a><br><br>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">QA Name</th>
+                  <th scope="col">Story_ID</th>
+                  <th scope="col">Sprint_ID</th>
+                  <th scope="col">QA_Task_ID</th>
+                  <th scope="col">Bugs_TODO</th>
+                  <th scope="col">Bugs_InProgress</th>
+                  <th scope="col">Bugs_Done</th>
+                  <th scope="col">Bugs_Verified</th>
+                  <th scope="col">Created_at</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for today_data in today_datas %}
+                    <tr>
+                        <th scope="row">{{ today_data.id }}</th>
+                        <td>{{ today_data.name }}</td>
+                        <td>{{ today_data.story_id }}</td>
+                        <td>{{ today_data.sprint_id }}</td>
+                        <td>{{ today_data.qa_task_id }}</td>
+                        <td>{{ today_data.bugs_todo }}</td>
+                        <td>{{ today_data.bugs_progress }}</td>
+                        <td>{{ today_data.bugs_done }}</td>
+                        <td>{{ today_data.bugs_verified }}</td>
+                        <td>{{ today_data.current_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
