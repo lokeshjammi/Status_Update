@@ -6,11 +6,45 @@
 {% block content %}
     <div class="container">
         <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
-            <span class="fs-4"><b>QA Status Update</b></span>
+            <span class="fs-4"><b>Edit QA Status</b></span>
         </header>
         <a href="{{ url_for('homepage') }}" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
             Back to Homepage
         </a><br><br>
-        {{ render_form(edit_working_ticket) }}
+        <form method="post">
+            <div class="mb-3">
+                <label for="sprint_id" class="form-label">Sprint_ID</label>
+                <input type="text" class="form-control" id="sprint_id" name="sprint_id" placeholder="Enter Sprint_ID you want to update" value={{ edit_data.sprint_id }}>
+            </div>
+            <div class="mb-3">
+                <label for="story_id" class="form-label">Story_ID</label>
+                <input type="text" class="form-control" id="story_id" name="story_id" placeholder="Enter Story_ID you want to update" value={{ edit_data.story_id }}>
+            </div>
+            <div class="mb-3">
+                <label for="qa_task_id" class="form-label">QA_Task_ID</label>
+                <input type="text" class="form-control" id="qa_task_id" name="qa_task_id" placeholder="Enter qa_task_id you want to update" value={{ edit_data.qa_task_id }}>
+            </div>
+            <div class="mb-3">
+                <label for="qa_bugs_todo" class="form-label">QA_Bugs_Todo</label>
+                <input type="text" class="form-control" id="qa_bugs_todo" name="qa_bugs_todo" placeholder="Enter qa_bugs_todo you want to update" value={{ edit_data.bugs_todo }}>
+            </div>
+            <div class="mb-3">
+                <label for="qa_bugs_progress" class="form-label">QA_Bugs_Progress</label>
+                <input type="text" class="form-control" id="qa_bugs_progress" name="qa_bugs_progress" placeholder="Enter qa_bugs_progress you want to update" value={{ edit_data.bugs_progress }}>
+            </div>
+            <div class="mb-3">
+                <label for="qa_bugs_done" class="form-label">QA_Bugs_Done</label>
+                <input type="text" class="form-control" id="qa_bugs_done" name="qa_bugs_done" placeholder="Enter qa_bugs_done you want to update" value={{ edit_data.bugs_done }}>
+            </div>
+            <div class="mb-3">
+                <label for="qa_bugs_verified" class="form-label">QA_Bugs_Verified</label>
+                <input type="text" class="form-control" id="qa_bugs_verified" name="qa_bugs_verified" placeholder="Enter qa_bugs_done you want to update" value={{ edit_data.bugs_verified }}>
+            </div>
+            <div class="mb-3">
+                <label for="current_date" class="form-label">Current Date</label>
+                <input type="Date" class="form-control" id="current_date" name="current_date" placeholder="Enter qa_bugs_done you want to update" value={{ edit_data.current_date }}>
+            </div>
+            {{ render_form(edit_working_ticket) }}
+        </form>
     </div>
 {% endblock %}
