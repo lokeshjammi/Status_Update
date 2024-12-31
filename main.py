@@ -55,13 +55,6 @@ class AddWorkingTickets(FlaskForm):
     submit = SubmitField(label="Submit")
 
 class EditWorkingTicket(FlaskForm):
-    sprint_id = IntegerField(label="Sprint_ID", validators=[DataRequired()])
-    story_id = StringField(label="Story_ID", validators=[DataRequired()])
-    qa_task_id = StringField(label="QA_Task_ID", validators=[DataRequired()])
-    qa_bugs_todo = StringField(label="Todo_Bug_ID", validators=[DataRequired()])
-    qa_bugs_progress = StringField(label="InProgress_Bug_ID", validators=[DataRequired()])
-    qa_bugs_done = StringField(label="Done_Bug_ID", validators=[DataRequired()])
-    qa_bugs_verified = StringField(label="Verified_Bug_ID", validators=[DataRequired()])
     submit = SubmitField(label="Submit")
 
 class AddUsers(FlaskForm):
@@ -124,16 +117,6 @@ def view_registered_users():
     users_data = db.session.query(Users).all()
     return render_template('view_users.html', users_data=users_data)
 
-
-# @app.route("/update")
-# def update_work_tickets():
-#     return render_template('update.html')
-
-
-# @app.route("/delete")
-# def delete_work_tickets():
-#     return render_template('delete.html')
-
 @app.route("/view_all_data", methods=['POST', 'GET'])
 def view_all_data():
     db.session.rollback()
@@ -153,6 +136,7 @@ def edit_details(selected_data_id):
         edit_data.bugs_progress = request.form.get('qa_bugs_progress')
         edit_data.bugs_done = request.form.get('qa_bugs_done')
         edit_data.bugs_verified = request.form.get('qa_bugs_verified')
+        edit_data.current_date = request.form.get('current_date')
         db.session.commit()
         return redirect(url_for('view_all_data'))
     return render_template('edit_details.html', edit_working_ticket=edit_working_ticket, edit_data=edit_data)
